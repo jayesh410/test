@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        // Validate payment form before submission
+        function validatePaymentForm() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const nameOnCard = document.getElementById('nameOnCard').value;
+            const email = document.getElementById('email').value;
+            const billingAddress = document.getElementById('billingAddress').value;
+            const errorMessages = document.getElementById('errorMessages');
+            errorMessages.innerHTML = ''; // Clear any previous errors
+
+            let valid = true;
+
+            // Validate email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'Please enter a valid email address.';
+                errorMessages.appendChild(error);
+            }
+
+            // Validate card number (basic length check)
+            if (cardNumber.length !== 16) {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'Card number must be 16 digits.';
+                errorMessages.appendChild(error);
+            }
+
+            // Validate expiry date (basic check)
+            if (expiryDate === '') {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'Please enter the expiry date.';
+                errorMessages.appendChild(error);
+            }
+
+            // Validate CVV (3 digits)
+            if (cvv.length !== 3) {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'CVV must be 3 digits.';
+                errorMessages.appendChild(error);
+            }
+
+            // Validate name on card
+            if (nameOnCard === '') {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'Please enter the name on the card.';
+                errorMessages.appendChild(error);
+            }
+
+            // Validate billing address
+            if (billingAddress === '') {
+                valid = false;
+                const error = document.createElement('li');
+                error.textContent = 'Please enter the billing address.';
+                errorMessages.appendChild(error);
+            }
+
+            return valid;
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .payment-form-container {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+        }
+
+        .social-media-icons a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .social-media-icons a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="payment-form-container" style="width: 500px;">
+        <h2 class="form-title text-center">Payment Information</h2>
+
+        <!-- Payment Form -->
+        <form onsubmit="return validatePaymentForm()">
+            <!-- Name on Card -->
+            <div class="mb-3">
+                <label for="nameOnCard" class="form-label">Name on Card</label>
+                <input type="text" class="form-control" id="nameOnCard" placeholder="Enter the name on the card" required>
+            </div>
+
+            <!-- Email Address -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+            </div>
+
+            <!-- Billing Address -->
+            <div class="mb-3">
+                <label for="billingAddress" class="form-label">Billing Address</label>
+                <input type="text" class="form-control" id="billingAddress" placeholder="Enter your billing address" required>
+            </div>
+
+            <!-- Card Number -->
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="Enter your card number" required>
+            </div>
+
+            <!-- Expiry Date -->
+            <div class="mb-3">
+                <label for="expiryDate" class="form-label">Expiry Date (MM/YY)</label>
+                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+            </div>
+
+            <!-- CVV -->
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="Enter your CVV" required>
+            </div>
+
+            <!-- Coupon code section (optional) -->
+            <div class="mb-3">
+                <label for="couponCode" class="form-label">Coupon Code (Optional)</label>
+                <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code if any">
+            </div>
+
+            <!-- Error messages -->
+            <ul id="errorMessages" class="error-message"></ul>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Pay Now</button>
+        </form>
+
+        <!-- Optional Social Media Section -->
+        <div class="text-center mt-3 social-media-icons">
+            <a href="#" class="fab fa-facebook"> Facebook</a>
+            <a href="#" class="fab fa-twitter"> Twitter</a>
+            <a href="#" class="fab fa-linkedin"> LinkedIn</a>
+            <a href="#" class="fab fa-instagram"> Instagram</a>
+        </div>
+    </div>
+</div>
+
+<!-- Add FontAwesome for social media icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
